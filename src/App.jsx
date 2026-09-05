@@ -17,6 +17,7 @@ import { WordFamiliesActivity } from './features/wordFamilies/WordFamiliesActivi
 import { PhonemeSubstitution } from './features/phonemeSubstitution/PhonemeSubstitution.jsx';
 import { StickerBookPage } from './pages/StickerBookPage.jsx';
 import { SightWordLibrary } from './features/sightWordLibrary/SightWordLibrary.jsx';
+import { InstallPrompt } from './components/InstallPrompt.jsx';
 import { storage } from './lib/storage.js';
 import { PHONEMES } from './data/phonemes.js';
 
@@ -179,6 +180,7 @@ export default function App() {
         {page === 'parent' && <ParentDashboard />}
       </div>
 
+      <InstallPrompt />
       <nav style={{
         position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)',
         width: '100%', maxWidth: 640,
