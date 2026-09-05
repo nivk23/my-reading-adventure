@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "my-reading-adventure",
     "public": "dist",
     "ignore": [
       "firebase.json",
