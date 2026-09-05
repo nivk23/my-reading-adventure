@@ -1,4 +1,4 @@
-const CACHE = 'mra-v1';
+const CACHE = 'mra-v2';
 const PRECACHE = ['/', '/index.html'];
 
 self.addEventListener('install', e => {
@@ -19,14 +19,25 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if (url.origin !== location.origin) return;
-  e.respondWith(
-    caches.open(CACHE).then(async cache => {
-      const cached = await cache.match(e.request);
-      const fresh = fetch(e.request).then(r => {
-        if (r.ok) cache.put(e.request, r.clone());
+
+  const isNav = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('.html');
+
+  if (isNav) {
+    e.respondWith(
+      fetch(e.request).then(r => {
+        if (r.ok) caches.open(CACHE).then(c => c.put(e.request, r.clone()));
         return r;
-      }).catch(() => cached);
-      return cached || fresh;
-    })
-  );
+      }).catch(() => caches.match(e.request))
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(cached => {
+        const fresh = fetch(e.request).then(r => {
+          if (r.ok) caches.open(CACHE).then(c => c.put(e.request, r.clone()));
+          return r;
+        }).catch(() => cached);
+        return cached || fresh;
+      })
+    );
+  }
 });
