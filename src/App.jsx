@@ -16,12 +16,14 @@ import { SegmentingActivity } from './features/segmenting/SegmentingActivity.jsx
 import { WordFamiliesActivity } from './features/wordFamilies/WordFamiliesActivity.jsx';
 import { PhonemeSubstitution } from './features/phonemeSubstitution/PhonemeSubstitution.jsx';
 import { StickerBookPage } from './pages/StickerBookPage.jsx';
+import { SightWordLibrary } from './features/sightWordLibrary/SightWordLibrary.jsx';
 import { storage } from './lib/storage.js';
 import { PHONEMES } from './data/phonemes.js';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home', emoji: '🏠' },
   { id: 'learn', label: 'Learn', emoji: '🔤' },
+  { id: 'words', label: 'Words', emoji: '👁️' },
   { id: 'practise', label: 'Practise', emoji: '🏋️' },
   { id: 'read', label: 'Read', emoji: '📚' },
   { id: 'progress', label: 'Stars', emoji: '⭐' },
@@ -71,6 +73,14 @@ export default function App() {
       }
     }
     setActivity(null);
+  }
+
+  if (page === 'words') {
+    return (
+      <div style={rootStyle}>
+        <SightWordLibrary onBack={() => setPage('home')} />
+      </div>
+    );
   }
 
   if (showStickerBook) {
