@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sunny } from '../../components/Sunny.jsx';
 import { Celebration } from '../../components/Celebration.jsx';
 import { masteryEngine } from '../../lib/masteryEngine.js';
+import { tts } from '../../lib/tts.js';
 
 export function StoryReader({ story, onComplete }) {
   const [pageIdx, setPageIdx] = useState(0);
@@ -12,6 +13,10 @@ export function StoryReader({ story, onComplete }) {
 
   const page = story.pages[pageIdx];
   const question = story.questions[qIdx];
+
+  useEffect(() => {
+    if (stage === 'reading' && page) tts.speakSlow(page.text);
+  }, [pageIdx, stage]);
 
   function nextPage() {
     if (pageIdx < story.pages.length - 1) {
@@ -88,6 +93,7 @@ export function StoryReader({ story, onComplete }) {
               fontSize: 28, fontWeight: 900, lineHeight: 1.6,
               color: '#2D2D2D', letterSpacing: '0.03em',
             }}>{page.text}</div>
+            <button onClick={() => tts.speakSlow(page.text)} aria-label="Hear it again" style={{ marginTop: 16, background: '#EDE9FE', border: '2px solid #C77DFF', borderRadius: '50%', width: 44, height: 44, fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 0 rgba(0,0,0,0.1)', fontFamily: 'inherit', margin: '16px auto 0' }}>🔊</button>
           </div>
 
           <button

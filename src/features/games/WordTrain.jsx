@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sunny } from '../../components/Sunny.jsx';
 import { masteryEngine } from '../../lib/masteryEngine.js';
 import { curriculumEngine } from '../../lib/curriculumEngine.js';
+import { tts } from '../../lib/tts.js';
 
 function shuffle(arr) {
   const a = [...arr];
@@ -46,6 +47,8 @@ export function WordTrain({ onComplete }) {
   const letters = word.word.split('');
   const carriages = word.carriages;
 
+  useEffect(() => { tts.speakSlow(word.word); }, [wordIdx]);
+
   const nextCorrectIdx = placed.length; // the next origIdx we need is placed.length (0,1,2...)
 
   function handleCarriage(origIdx, carriageId) {
@@ -56,6 +59,7 @@ export function WordTrain({ onComplete }) {
       if (newPlaced.length === letters.length) {
         masteryEngine.recordAnswer('blend', word.word, !hadMistake);
         if (!hadMistake) setScore(s => s + 1);
+        tts.speakSlow(word.word);
         setWordDone(true);
       }
     } else {
@@ -91,6 +95,7 @@ export function WordTrain({ onComplete }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <button onClick={onComplete} style={{ background: '#f3f4f6', border: 'none', borderRadius: '1rem', padding: '10px 16px', fontFamily: 'inherit', fontWeight: 900, cursor: 'pointer', fontSize: 15, minHeight: 44 }}>← Back</button>
         <div style={{ flex: 1, fontWeight: 900, fontSize: 16, color: '#888' }}>Word {wordIdx + 1} of {words.length}</div>
+        <button onClick={() => tts.speakSlow(word.word)} aria-label="Hear the word" style={{ background: '#EDE9FE', border: '2px solid #C77DFF', borderRadius: '50%', width: 44, height: 44, fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 0 rgba(0,0,0,0.1)', fontFamily: 'inherit' }}>🔊</button>
         <div style={{ fontWeight: 900, fontSize: 16, color: '#6BCFA5' }}>✅ {score}</div>
       </div>
 

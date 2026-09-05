@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sunny } from '../../components/Sunny.jsx';
 import { Celebration } from '../../components/Celebration.jsx';
 import { masteryEngine } from '../../lib/masteryEngine.js';
 import { SIGHT_WORDS } from '../../data/sightWords.js';
+import { tts } from '../../lib/tts.js';
 
 function highlightTricky(word, trickyPart) {
   if (!trickyPart) {
@@ -25,6 +26,7 @@ function highlightTricky(word, trickyPart) {
 
 export function SightWordLesson({ sightWord, onComplete }) {
   const [stage, setStage] = useState('learn');
+  useEffect(() => { tts.speakSlow(sightWord.word); }, [sightWord.word]);
   const [options] = useState(() => {
     const others = SIGHT_WORDS
       .filter(sw => sw.word !== sightWord.word)
@@ -38,6 +40,7 @@ export function SightWordLesson({ sightWord, onComplete }) {
   function handleFind(sw) {
     if (selected) return;
     const correct = sw.word === sightWord.word;
+    tts.speak(correct ? 'Yes!' : 'Try again');
     setSelected(sw.word);
     setIsCorrect(correct);
     masteryEngine.recordAnswer('sight', sightWord.word, correct);
@@ -73,6 +76,7 @@ export function SightWordLesson({ sightWord, onComplete }) {
             textAlign: 'center',
           }}>
             {highlightTricky(sightWord.word, sightWord.trickyPart)}
+            <button onClick={() => tts.speakSlow(sightWord.word)} aria-label="Hear it again" style={{ marginTop: 12, background: '#EDE9FE', border: '2px solid #C77DFF', borderRadius: '50%', width: 44, height: 44, fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 0 rgba(0,0,0,0.1)', fontFamily: 'inherit' }}>🔊</button>
             {sightWord.emoji && (
               <div style={{ fontSize: 40, marginTop: 12 }}>{sightWord.emoji}</div>
             )}

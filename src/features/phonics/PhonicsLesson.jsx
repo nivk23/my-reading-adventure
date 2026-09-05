@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sunny } from '../../components/Sunny.jsx';
 import { Celebration } from '../../components/Celebration.jsx';
 import { ParentHelp } from '../../components/ParentHelp.jsx';
 import { masteryEngine } from '../../lib/masteryEngine.js';
 import { PHONEMES } from '../../data/phonemes.js';
+import { tts } from '../../lib/tts.js';
 
 const VOWEL_COLORS = {
   short_vowel: '#FF6B6B',
@@ -45,6 +46,7 @@ export function PhonicsLesson({ phoneme, allPhonemes, onComplete }) {
   function handleQuizAnswer(choice) {
     if (selected) return;
     const correct = choice.id === phoneme.id;
+    tts.speak(correct ? 'Yes!' : 'Try again');
     setSelected(choice.id);
     setIsCorrect(correct);
     masteryEngine.recordAnswer('phoneme', phoneme.id, correct);
@@ -59,6 +61,8 @@ export function PhonicsLesson({ phoneme, allPhonemes, onComplete }) {
       }
     }, 1200);
   }
+
+  useEffect(() => { tts.speakSlow(phoneme.exampleWord); }, []);
 
   const blockColor = getBlockColor(phoneme);
   const blockShadow = getBlockShadow(phoneme);
@@ -120,6 +124,7 @@ export function PhonicsLesson({ phoneme, allPhonemes, onComplete }) {
             }}>Parent: say the /{phoneme.phoneme}/ sound</div>
             <div style={{ fontSize: 32, fontWeight: 900 }}>{phoneme.exampleEmoji} {phoneme.exampleWord}</div>
             <div style={{ marginTop: 10, fontSize: 15, color: '#555', lineHeight: 1.6 }}>{phoneme.mouthCue}</div>
+            <button onClick={() => tts.speakSlow(phoneme.exampleWord)} aria-label="Hear it again" style={{ marginTop: 12, background: '#EDE9FE', border: '2px solid #C77DFF', borderRadius: '50%', width: 44, height: 44, fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 0 rgba(0,0,0,0.1)', fontFamily: 'inherit' }}>🔊</button>
           </div>
 
           <button
@@ -160,6 +165,7 @@ export function PhonicsLesson({ phoneme, allPhonemes, onComplete }) {
               textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4,
             }}>Parent: point to the letter that says</div>
             <div style={{ fontSize: 36, fontWeight: 900, color: '#7c3aed' }}>/{phoneme.phoneme}/</div>
+            <button onClick={() => tts.speakSlow(phoneme.exampleWord)} aria-label="Hear it again" style={{ marginTop: 8, background: '#EDE9FE', border: '2px solid #C77DFF', borderRadius: '50%', width: 44, height: 44, fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 0 rgba(0,0,0,0.1)', fontFamily: 'inherit' }}>🔊</button>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sunny } from '../../components/Sunny.jsx';
 import { Celebration } from '../../components/Celebration.jsx';
 import { masteryEngine } from '../../lib/masteryEngine.js';
 import { curriculumEngine } from '../../lib/curriculumEngine.js';
+import { tts } from '../../lib/tts.js';
 
 function shuffle(arr) {
   const a = [...arr];
@@ -66,12 +67,15 @@ export function FeedSunny({ onComplete }) {
   const round = rounds[Math.min(roundIdx, rounds.length - 1)];
   const { phoneme, answer, options } = round;
 
+  useEffect(() => { tts.speakSlow(phoneme.displaySound); }, [roundIdx]);
+
   const vowelColors = ['short_vowel','long_vowel','vowel_team','r_controlled','diphthong'];
   const blockBg = vowelColors.includes(phoneme.category) ? '#FF6B6B' : phoneme.category === 'digraph' ? '#C77DFF' : '#5BC8F5';
 
   function handleChoice(word) {
     if (selected) return;
     const correct = word === answer.word;
+    tts.speak(correct ? `Yum! ${answer.word}!` : 'Try again');
     setSelected(word);
     setIsCorrect(correct);
     setResults(prev => [...prev, correct]);
@@ -129,6 +133,7 @@ export function FeedSunny({ onComplete }) {
         }}>
           {phoneme.grapheme.toUpperCase()} · /{phoneme.phoneme}/
         </div>
+        <button onClick={() => tts.speakSlow(phoneme.displaySound)} aria-label="Hear the sound" style={{ marginTop: 8, background: '#EDE9FE', border: '2px solid #C77DFF', borderRadius: '50%', width: 44, height: 44, fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 0 rgba(0,0,0,0.1)', fontFamily: 'inherit' }}>🔊</button>
       </div>
 
       {/* Parent instruction */}

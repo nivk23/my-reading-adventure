@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sunny } from '../../components/Sunny.jsx';
 import { Celebration } from '../../components/Celebration.jsx';
 import { masteryEngine } from '../../lib/masteryEngine.js';
 import { PHONEMES } from '../../data/phonemes.js';
+import { tts } from '../../lib/tts.js';
 
 const VOWEL_COLORS = {
   short_vowel: '#FF6B6B',
@@ -28,6 +29,8 @@ export function BlendingActivity({ word, onComplete }) {
   const [wrong, setWrong] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
+  useEffect(() => { tts.speakSlow(word.word); }, []);
+
   const letters = word.word.split('');
   const [scrambled] = useState(() => [...letters].sort(() => Math.random() - 0.5));
 
@@ -40,6 +43,7 @@ export function BlendingActivity({ word, onComplete }) {
       const correct = builtWord === word.word;
       masteryEngine.recordAnswer('blend', word.word, correct);
       if (correct) {
+        tts.speakSlow(word.word);
         setShowResult(true);
         setTimeout(() => setStage('celebrate'), 800);
       } else {
@@ -112,6 +116,8 @@ export function BlendingActivity({ word, onComplete }) {
           </div>
 
           <div style={{ fontSize: 48 }}>{word.emoji}</div>
+
+          <button onClick={() => tts.speakSlow(word.word)} aria-label="Hear it again" style={{ background: '#EDE9FE', border: '2px solid #C77DFF', borderRadius: '50%', width: 44, height: 44, fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 0 rgba(0,0,0,0.1)', fontFamily: 'inherit' }}>🔊</button>
 
           <button
             onClick={() => setStage('build')}
