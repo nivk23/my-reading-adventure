@@ -1,5 +1,9 @@
 const synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
 
+export function haptic(pattern = 30) {
+  try { navigator.vibrate?.(pattern); } catch {}
+}
+
 export const tts = {
   speak(text, { rate = 0.85, pitch = 1.1, volume = 1 } = {}) {
     if (!synth) return;
@@ -15,5 +19,15 @@ export const tts = {
   },
   cancel() {
     synth?.cancel();
+  },
+  playRecorded(phonemeId, fallbackText) {
+    try {
+      const stored = localStorage.getItem(`mra_recording_${phonemeId}`);
+      if (stored) {
+        new Audio(stored).play();
+        return;
+      }
+    } catch {}
+    this.speakSlow(fallbackText);
   },
 };

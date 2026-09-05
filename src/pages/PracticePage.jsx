@@ -2,9 +2,10 @@ import { curriculumEngine } from '../lib/curriculumEngine.js';
 import { masteryEngine, STATUS } from '../lib/masteryEngine.js';
 
 const GAMES = [
-  { key: 'soundHunt', emoji: '🔍', title: 'Sound Hunt', desc: 'Find all words that start with a sound' },
-  { key: 'wordTrain', emoji: '🚂', title: 'Word Train', desc: 'Tap letters in order to build words' },
-  { key: 'feedSunny', emoji: '🍽️', title: 'Feed Sunny', desc: 'Feed Sunny words that start with a sound' },
+  { key: 'soundHunt', emoji: '🔍', title: 'Sound Hunt', desc: 'Find words that start with a sound' },
+  { key: 'wordTrain', emoji: '🚂', title: 'Word Train', desc: 'Tap letters to build words' },
+  { key: 'feedSunny', emoji: '🍽️', title: 'Feed Sunny', desc: 'Feed Sunny the right words' },
+  { key: 'segmenting', emoji: '🔊', title: 'Sound Boxes', desc: 'Tap each sound in a word' },
 ];
 
 export function PracticePage({ onStartActivity }) {
@@ -18,9 +19,8 @@ export function PracticePage({ onStartActivity }) {
         Build words and learn sight words
       </div>
 
-      {/* Mini-games section */}
       <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 12 }}>🎮 Mini-Games</div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 28 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 28 }}>
         {GAMES.map(game => (
           <button
             key={game.key}
@@ -31,7 +31,6 @@ export function PracticePage({ onStartActivity }) {
               cursor: 'pointer', fontFamily: 'inherit',
               display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
               boxShadow: '0 3px 0 rgba(0,0,0,0.08)', textAlign: 'center',
-              minHeight: 44,
             }}
           >
             <div style={{ fontSize: 28 }}>{game.emoji}</div>

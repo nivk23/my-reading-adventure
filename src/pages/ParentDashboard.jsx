@@ -3,12 +3,18 @@ import { PHONEMES } from '../data/phonemes.js';
 import { SIGHT_WORDS } from '../data/sightWords.js';
 import { masteryEngine, STATUS } from '../lib/masteryEngine.js';
 import { SettingsPanel } from '../components/SettingsPanel.jsx';
+import { PrintWorksheet } from '../components/PrintWorksheet.jsx';
+import { sessionHistory } from '../lib/sessionHistory.js';
 import { storage } from '../lib/storage.js';
 
 export function ParentDashboard() {
   const [showSettings, setShowSettings] = useState(false);
+  const [showWorksheet, setShowWorksheet] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const stats = masteryEngine.getStats();
+  const todayStats = sessionHistory.getTodayStats();
+  const history = sessionHistory.getHistory();
+  const childName = storage.get('child_name') || 'your child';
 
   const masteredPhonemes = PHONEMES.filter(p => masteryEngine.getStatus('phoneme', p.id) === STATUS.MASTERED);
   const reviewPhonemes = PHONEMES.filter(p => masteryEngine.getStatus('phoneme', p.id) === STATUS.NEEDS_REVIEW);
@@ -27,6 +33,10 @@ export function ParentDashboard() {
     }
   }
 
+  if (showWorksheet) {
+    return <PrintWorksheet onClose={() => setShowWorksheet(false)} />;
+  }
+
   return (
     <div style={{ padding: 20, maxWidth: 600, margin: '0 auto' }}>
       {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
@@ -43,12 +53,42 @@ export function ParentDashboard() {
         >⚙️ Settings</button>
       </div>
 
+      {todayStats.total > 0 && (
+        <div style={{
+          background: 'linear-gradient(135deg,#EDE9FE,#E0F7FF)',
+          borderRadius: '1.25rem', padding: 16, marginBottom: 20,
+          border: '2px solid #C77DFF',
+        }}>
+          <div style={{ fontWeight: 900, fontSize: 14, color: '#7c3aed', marginBottom: 8 }}>
+            🌟 Today — {childName}
+          </div>
+          <div style={{ display: 'flex', gap: 16 }}>
+            <div>
+              <div style={{ fontWeight: 900, fontSize: 22 }}>{todayStats.total}</div>
+              <div style={{ fontSize: 12, color: '#7c3aed', fontWeight: 700 }}>activities</div>
+            </div>
+            <div>
+              <div style={{ fontWeight: 900, fontSize: 22 }}>{todayStats.correct}</div>
+              <div style={{ fontSize: 12, color: '#7c3aed', fontWeight: 700 }}>correct</div>
+            </div>
+            {todayStats.total > 0 && (
+              <div>
+                <div style={{ fontWeight: 900, fontSize: 22 }}>
+                  {Math.round(todayStats.correct / todayStats.total * 100)}%
+                </div>
+                <div style={{ fontSize: 12, color: '#7c3aed', fontWeight: 700 }}>accuracy</div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <div style={{
         background: '#FFF8F0', borderRadius: '1.25rem',
         padding: 16, marginBottom: 20,
         border: '2px solid #FFD93D',
       }}>
-        <div style={{ fontWeight: 900, fontSize: 14, color: '#8B5E3C', marginBottom: 8 }}>📊 Overview</div>
+        <div style={{ fontWeight: 900, fontSize: 14, color: '#8B5E3C', marginBottom: 8 }}>📊 Overall Progress</div>
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
           {[
             { label: 'Mastered sounds', value: stats.mastered },
@@ -101,6 +141,42 @@ export function ParentDashboard() {
         </div>
       )}
 
+      {history.length > 0 && (
+        <div style={{
+          background: 'white', borderRadius: '1.25rem',
+          padding: 16, marginBottom: 20,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+        }}>
+          <div style={{ fontWeight: 900, fontSize: 14, marginBottom: 10 }}>📅 Recent Sessions</div>
+          {history.slice(0, 7).map((session, i) => {
+            const correct = session.activities.filter(a => a.correct).length;
+            const total = session.activities.length;
+            const pct = total > 0 ? Math.round(correct / total * 100) : 0;
+            const date = new Date(session.date);
+            const label = date.toDateString() === new Date().toDateString()
+              ? 'Today'
+              : date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+            return (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                padding: '8px 0',
+                borderBottom: i < Math.min(history.length, 7) - 1 ? '1px solid #f3f4f6' : 'none',
+              }}>
+                <div style={{ fontWeight: 700, fontSize: 13, color: '#555', minWidth: 70 }}>{label}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ height: 8, background: '#f3f4f6', borderRadius: 4, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${pct}%`, background: '#6BCFA5', borderRadius: 4 }} />
+                  </div>
+                </div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#888', minWidth: 50, textAlign: 'right' }}>
+                  {correct}/{total}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <div style={{
         background: 'white', borderRadius: '1.25rem',
         padding: 16, marginBottom: 20,
@@ -114,6 +190,17 @@ export function ParentDashboard() {
           <div>• Celebrate every attempt — errors are part of learning!</div>
         </div>
       </div>
+
+      <button
+        onClick={() => setShowWorksheet(true)}
+        style={{
+          width: '100%', padding: '16px',
+          background: '#EDE9FE', color: '#7c3aed',
+          border: '2px solid #C77DFF', borderRadius: '1.25rem',
+          fontFamily: 'inherit', fontWeight: 900, fontSize: 15,
+          cursor: 'pointer', marginBottom: 12,
+        }}
+      >🖨️ Print Worksheet</button>
 
       <button
         onClick={handleReset}

@@ -12,6 +12,8 @@ import { StoryReader } from './features/reading/StoryReader.jsx';
 import { SoundHunt } from './features/games/SoundHunt.jsx';
 import { WordTrain } from './features/games/WordTrain.jsx';
 import { FeedSunny } from './features/games/FeedSunny.jsx';
+import { SegmentingActivity } from './features/segmenting/SegmentingActivity.jsx';
+import { StickerBook } from './features/games/StickerBook.jsx';
 import { storage } from './lib/storage.js';
 import { PHONEMES } from './data/phonemes.js';
 
@@ -26,6 +28,7 @@ const NAV_ITEMS = [
 export default function App() {
   const [page, setPage] = useState('home');
   const [activity, setActivity] = useState(null);
+  const [showStickerBook, setShowStickerBook] = useState(false);
   const [settings] = useState(() => storage.get('settings') || {});
 
   const fontSizeMap = { small: 14, medium: 16, large: 18, xlarge: 22 };
@@ -68,6 +71,16 @@ export default function App() {
     setActivity(null);
   }
 
+  if (showStickerBook) {
+    return (
+      <div style={rootStyle}>
+        <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 16 }}>
+          <StickerBook onClose={() => setShowStickerBook(false)} />
+        </div>
+      </div>
+    );
+  }
+
   if (activity) {
     return (
       <div style={rootStyle}>
@@ -97,6 +110,9 @@ export default function App() {
           {activity.type === 'game' && activity.game === 'feedSunny' && (
             <FeedSunny onComplete={completeActivity} />
           )}
+          {activity.type === 'game' && activity.game === 'segmenting' && (
+            <SegmentingActivity onComplete={completeActivity} />
+          )}
         </div>
       </div>
     );
@@ -112,14 +128,24 @@ export default function App() {
         position: 'sticky', top: 0, zIndex: 10,
       }}>
         <div style={{ fontWeight: 900, fontSize: 18 }}>My Reading Adventure 🌟</div>
-        <button
-          onClick={() => setPage('parent')}
-          style={{
-            background: '#f3f4f6', border: 'none', borderRadius: '1rem',
-            padding: '6px 12px', fontFamily: 'inherit',
-            fontWeight: 900, fontSize: 13, cursor: 'pointer',
-          }}
-        >👨‍👩‍👧</button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            onClick={() => setShowStickerBook(true)}
+            style={{
+              background: '#FFF8F0', border: '2px solid #FFD93D', borderRadius: '1rem',
+              padding: '6px 12px', fontFamily: 'inherit',
+              fontWeight: 900, fontSize: 13, cursor: 'pointer',
+            }}
+          >🌟 Stickers</button>
+          <button
+            onClick={() => setPage('parent')}
+            style={{
+              background: '#f3f4f6', border: 'none', borderRadius: '1rem',
+              padding: '6px 12px', fontFamily: 'inherit',
+              fontWeight: 900, fontSize: 13, cursor: 'pointer',
+            }}
+          >👨‍👩‍👧</button>
+        </div>
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 80 }}>

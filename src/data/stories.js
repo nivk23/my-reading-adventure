@@ -153,4 +153,152 @@ export const STORIES = [
       },
     ],
   },
+  // Phase 2 stories
+  {
+    id: 'dog-in-the-den',
+    title: 'Dog in the Den',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e'],
+    requiredSightWords: ['the', 'a', 'is'],
+    pages: [
+      { text: 'A big dog sat.', illustration: '🐕🪑' },
+      { text: 'The dog is tan.', illustration: '🐕🌟' },
+      { text: 'The dog nips a bone.', illustration: '🐕🦴' },
+      { text: 'The big dog digs.', illustration: '🐕🕳️' },
+      { text: 'The dog sat on a mat.', illustration: '🐕🧶' },
+      { text: 'The dog is a good dog!', illustration: '🐕❤️' },
+    ],
+    questions: [
+      { question: 'What did the dog sit on?', answers: ['A mat', 'A bed', 'A log'], correct: 0 },
+      { question: 'What did the dog dig?', answers: ['A bone', 'A hole', 'A den'], correct: 1 },
+    ],
+  },
+  {
+    id: 'ben-and-his-pet',
+    title: 'Ben and His Pet',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e'],
+    requiredSightWords: ['the', 'a', 'is', 'and'],
+    pages: [
+      { text: 'Ben has a pet.', illustration: '👦🐾' },
+      { text: 'The pet is a big pig.', illustration: '🐷🌟' },
+      { text: 'Ben and the pig nap.', illustration: '👦🐷💤' },
+      { text: 'The pig sits on a mat.', illustration: '🐷🧶' },
+      { text: 'Ben pats the pig.', illustration: '👦🐷❤️' },
+      { text: 'Ben and his pet are best pals!', illustration: '👦🐷🌈' },
+    ],
+    questions: [
+      { question: "What is Ben's pet?", answers: ['A dog', 'A pig', 'A cat'], correct: 1 },
+      { question: 'What do Ben and the pig do together?', answers: ['Nap', 'Run', 'Swim'], correct: 0 },
+    ],
+  },
+  // Phase 3 stories
+  {
+    id: 'fun-in-the-mud',
+    title: 'Fun in the Mud',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e', 'h', 'r', 'u', 'f', 'l'],
+    requiredSightWords: ['the', 'a', 'is', 'and', 'in'],
+    pages: [
+      { text: 'The pup runs to the mud.', illustration: '🐶💨' },
+      { text: 'The mud is fun!', illustration: '🐶🟫😄' },
+      { text: 'The pup digs in the mud.', illustration: '🐶🕳️' },
+      { text: 'Mud on the pup! Mud on his legs!', illustration: '🐶💦' },
+      { text: 'Mum rubs the pup.', illustration: '👩🐶🧹' },
+      { text: 'The pup is fluffy and clean!', illustration: '🐶✨' },
+    ],
+    questions: [
+      { question: 'Where did the pup run?', answers: ['To the mud', 'To the hut', 'To the bed'], correct: 0 },
+      { question: 'Who rubs the pup?', answers: ['Dad', 'Mum', 'Sam'], correct: 1 },
+    ],
+  },
+  {
+    id: 'the-red-hen',
+    title: 'The Red Hen',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e', 'h', 'r', 'u', 'f', 'l'],
+    requiredSightWords: ['the', 'a', 'is', 'and', 'on'],
+    pages: [
+      { text: 'A red hen sat on a hill.', illustration: '🐔🏔️' },
+      { text: 'The hen has a big nest.', illustration: '🐔🪹' },
+      { text: 'She has an egg in the nest.', illustration: '🐔🥚' },
+      { text: 'The egg is big and round.', illustration: '🥚🌟' },
+      { text: 'A fun pup runs up the hill.', illustration: '🐶🏔️' },
+      { text: 'The hen and the pup are friends!', illustration: '🐔🐶❤️' },
+    ],
+    questions: [
+      { question: 'Where does the hen sit?', answers: ['On a hill', 'On a log', 'On a mat'], correct: 0 },
+      { question: 'What is in the nest?', answers: ['A pup', 'An egg', 'A bug'], correct: 1 },
+    ],
+  },
+  // Phase 4 stories
+  {
+    id: 'the-shell',
+    title: 'The Shell',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e', 'h', 'r', 'u', 'f', 'l', 'sh', 'ch', 'th'],
+    requiredSightWords: ['the', 'a', 'is', 'and', 'on'],
+    pages: [
+      { text: 'Chip finds a shell on the path.', illustration: '👦🐚' },
+      { text: 'The shell is thin and flat.', illustration: '🐚✨' },
+      { text: 'Chip holds the shell up.', illustration: '👦🐚🌟' },
+      { text: 'He shops for a box for his shell.', illustration: '👦🛍️' },
+      { text: 'The shell sits in the box with his things.', illustration: '🐚📦' },
+      { text: 'Chip is chuffed with his shell!', illustration: '👦🐚😄' },
+    ],
+    questions: [
+      { question: 'Where did Chip find the shell?', answers: ['On the path', 'In the shop', 'At the shed'], correct: 0 },
+      { question: 'What does Chip put the shell in?', answers: ['A bag', 'A box', 'A net'], correct: 1 },
+    ],
+  },
+  // Phase 5 stories
+  {
+    id: 'the-green-tree',
+    title: 'The Green Tree',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e', 'h', 'r', 'u', 'f', 'l', 'sh', 'ch', 'th', 'ee', 'ai'],
+    requiredSightWords: ['the', 'a', 'is', 'and', 'on', 'in', 'to'],
+    pages: [
+      { text: 'A green tree stands by the road.', illustration: '🌳🛣️' },
+      { text: 'A bee sleeps in the tree.', illustration: '🐝🌳💤' },
+      { text: 'Rain falls on the tree.', illustration: '🌧️🌳' },
+      { text: 'The bee wakes up and sees the rain.', illustration: '🐝👀🌧️' },
+      { text: 'She flies to a leaf to wait.', illustration: '🐝🍃' },
+      { text: 'The sun comes and the bee is free!', illustration: '🐝☀️🌳' },
+    ],
+    questions: [
+      { question: 'What sleeps in the tree?', answers: ['A bee', 'A bird', 'A frog'], correct: 0 },
+      { question: 'What falls on the tree?', answers: ['Snow', 'Rain', 'Leaves'], correct: 1 },
+    ],
+  },
+  {
+    id: 'the-boat-trip',
+    title: 'The Boat Trip',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e', 'h', 'r', 'u', 'f', 'l', 'sh', 'ch', 'th', 'ee', 'ai', 'oa', 'ar'],
+    requiredSightWords: ['the', 'a', 'is', 'and', 'on', 'to', 'in'],
+    pages: [
+      { text: 'Dad has a boat on the sea.', illustration: '👨⛵🌊' },
+      { text: 'The boat floats far from the shore.', illustration: '⛵🌊🌅' },
+      { text: 'A seal barks at the boat!', illustration: '🦭⛵' },
+      { text: 'The seal is not afraid of Dad.', illustration: '🦭👨😄' },
+      { text: 'The boat sails back to the shore.', illustration: '⛵🏖️' },
+      { text: 'Dad and the seal say farewell!', illustration: '👨🦭👋' },
+    ],
+    questions: [
+      { question: 'What does Dad have?', answers: ['A car', 'A boat', 'A train'], correct: 1 },
+      { question: 'Who barks at the boat?', answers: ['A dog', 'A seal', 'A bee'], correct: 1 },
+    ],
+  },
+  {
+    id: 'moon-and-stars',
+    title: 'Moon and Stars',
+    requiredPhonemes: ['m', 's', 'a', 't', 'p', 'i', 'n', 'o', 'b', 'd', 'g', 'e', 'h', 'r', 'u', 'f', 'l', 'sh', 'ch', 'th', 'ee', 'oo', 'ar'],
+    requiredSightWords: ['the', 'a', 'is', 'and', 'in', 'to', 'on'],
+    pages: [
+      { text: 'The moon shines in the dark.', illustration: '🌙✨' },
+      { text: 'Stars glow all around the moon.', illustration: '⭐🌙⭐' },
+      { text: 'A little owl hoots at the moon.', illustration: '🦉🌙' },
+      { text: 'The owl spots a pool far below.', illustration: '🦉🏞️' },
+      { text: 'She swoops down to the cool pool.', illustration: '🦉💧' },
+      { text: 'The moon smiles and the stars cheer!', illustration: '🌙😊⭐' },
+    ],
+    questions: [
+      { question: 'What shines in the dark?', answers: ['The sun', 'The moon', 'A lamp'], correct: 1 },
+      { question: 'What does the owl swoop to?', answers: ['A tree', 'A nest', 'A pool'], correct: 2 },
+    ],
+  },
 ];

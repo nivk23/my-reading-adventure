@@ -5,6 +5,7 @@ export function SettingsPanel({ onClose }) {
   const [fontSize, setFontSize] = useState(() => storage.get('settings_fontSize') || 'medium');
   const [spacing, setSpacing] = useState(() => storage.get('settings_spacing') || 'normal');
   const [reducedMotion, setReducedMotion] = useState(() => storage.get('settings_reducedMotion') || false);
+  const [childName, setChildName] = useState(() => storage.get('child_name') || '');
 
   function save(key, val) {
     storage.set('settings_' + key, val);
@@ -27,6 +28,11 @@ export function SettingsPanel({ onClose }) {
     }
   }
 
+  function saveChildName(name) {
+    setChildName(name);
+    storage.set('child_name', name.trim());
+  }
+
   return (
     <>
       <div
@@ -43,6 +49,8 @@ export function SettingsPanel({ onClose }) {
         padding: '28px 24px',
         zIndex: 101,
         animation: 'slideUp 0.35s ease',
+        maxHeight: '90vh',
+        overflowY: 'auto',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div style={{ fontSize: 20, fontWeight: 900 }}>⚙️ Settings</div>
@@ -62,6 +70,28 @@ export function SettingsPanel({ onClose }) {
               justifyContent: 'center',
             }}
           >✕</button>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ fontWeight: 900, marginBottom: 8 }}>Child&apos;s Name</div>
+          <input
+            type="text"
+            value={childName}
+            onChange={e => saveChildName(e.target.value)}
+            placeholder="e.g. Mia"
+            maxLength={20}
+            style={{
+              width: '100%',
+              padding: '12px 16px',
+              border: '3px solid #C77DFF',
+              borderRadius: '1rem',
+              fontFamily: 'inherit',
+              fontWeight: 700,
+              fontSize: 16,
+              outline: 'none',
+              boxSizing: 'border-box',
+            }}
+          />
         </div>
 
         <div style={{ marginBottom: 16 }}>
