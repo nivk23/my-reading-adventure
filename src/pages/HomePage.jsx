@@ -4,6 +4,29 @@ import { masteryEngine } from '../lib/masteryEngine.js';
 import { curriculumEngine } from '../lib/curriculumEngine.js';
 import { storage } from '../lib/storage.js';
 
+function getStreakDays() {
+  try {
+    const data = storage.get('streak_days');
+    if (!data) return 0;
+    const today = new Date().toDateString();
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (data.lastDate === today) return data.count;
+    if (data.lastDate === yesterday) return data.count; // still valid today
+    return 0;
+  } catch { return 0; }
+}
+
+function updateStreak() {
+  try {
+    const data = storage.get('streak_days');
+    const today = new Date().toDateString();
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (data?.lastDate === today) return; // already updated
+    const count = data?.lastDate === yesterday ? (data.count || 0) + 1 : 1;
+    storage.set('streak_days', { lastDate: today, count });
+  } catch {}
+}
+
 export function HomePage({ onStartActivity }) {
   const [mission] = useState(() => {
     const saved = storage.get('daily_mission');
@@ -11,9 +34,11 @@ export function HomePage({ onStartActivity }) {
     if (saved && saved.date === today) return saved.steps;
     const steps = curriculumEngine.buildDailyMission();
     storage.set('daily_mission', { date: today, steps });
+    updateStreak();
     return steps;
   });
   const [completedToday] = useState(() => storage.get('completed_today') || []);
+  const streak = getStreakDays();
   const stats = masteryEngine.getStats();
 
   const nextStep = mission.find((_, i) => !completedToday.includes(i));
@@ -21,10 +46,15 @@ export function HomePage({ onStartActivity }) {
   return (
     <div style={{ padding: 20, maxWidth: 600, margin: '0 auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
-        <Sunny expression={stats.mastered > 5 ? 'celebrating' : 'happy'} size={70} />
+        <Sunny expression={stats.mastered > 5 ? 'celebrating' : 'happy'} size={90} />
         <div>
-          <div style={{ fontSize: 22, fontWeight: 900 }}>Hi, Superstar! 🌟</div>
+          <div style={{ fontSize: 24, fontWeight: 900 }}>Hi, Superstar! ⭐</div>
           <div style={{ fontSize: 15, color: '#888', fontWeight: 700 }}>Ready for today&apos;s adventure?</div>
+          {streak > 0 && (
+            <div style={{ marginTop: 4, fontSize: 14, fontWeight: 900, color: '#FF9A3C' }}>
+              🔥 {streak} day{streak === 1 ? '' : 's'} in a row!
+            </div>
+          )}
         </div>
       </div>
 

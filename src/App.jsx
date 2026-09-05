@@ -35,7 +35,7 @@ export default function App() {
     fontFamily: "'Nunito', system-ui, sans-serif",
     fontSize: fontSizeMap[settings.fontSize] || 16,
     letterSpacing: letterSpacingMap[settings.letterSpacing] || '0',
-    background: '#FAFAF8',
+    background: 'linear-gradient(160deg,#FFF8F0 0%,#F5F0FF 50%,#F0FDF4 100%)',
     minHeight: '100dvh',
     display: 'flex',
     flexDirection: 'column',
@@ -143,20 +143,21 @@ export default function App() {
             key={item.id}
             onClick={() => setPage(item.id)}
             style={{
-              flex: 1, padding: '10px 4px 12px',
+              flex: 1, padding: '10px 4px 14px',
               background: 'none', border: 'none',
               cursor: 'pointer', fontFamily: 'inherit',
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
+              minHeight: 64,
             }}
           >
-            <div style={{ fontSize: 22 }}>{item.emoji}</div>
+            <div style={{ fontSize: 26 }}>{item.emoji}</div>
             <div style={{
-              fontSize: 11, fontWeight: 900,
+              fontSize: 12, fontWeight: 900,
               color: page === item.id ? '#C77DFF' : '#aaa',
             }}>{item.label}</div>
             {page === item.id && (
               <div style={{
-                width: 20, height: 3, borderRadius: 2,
+                width: 24, height: 3, borderRadius: 2,
                 background: '#C77DFF', marginTop: 1,
               }} />
             )}

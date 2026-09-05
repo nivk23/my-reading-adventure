@@ -33,10 +33,14 @@ export function PhonicsLesson({ phoneme, allPhonemes, onComplete }) {
   const pool = allPhonemes || PHONEMES;
   const otherPhonemes = pool.filter(p => p.id !== phoneme.id);
 
-  const [options] = useState(() => {
-    const shuffled = [...otherPhonemes].sort(() => Math.random() - 0.5).slice(0, 3);
-    return [...shuffled, phoneme].sort(() => Math.random() - 0.5);
-  });
+  // Two distinct option sets so question 2 isn't trivially easy
+  const [optionSets] = useState(() =>
+    [0, 1].map(() => {
+      const shuffled = [...otherPhonemes].sort(() => Math.random() - 0.5).slice(0, 3);
+      return [...shuffled, phoneme].sort(() => Math.random() - 0.5);
+    })
+  );
+  const options = optionSets[Math.min(questionCount, optionSets.length - 1)];
 
   function handleQuizAnswer(choice) {
     if (selected) return;

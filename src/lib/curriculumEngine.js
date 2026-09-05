@@ -65,9 +65,12 @@ export const curriculumEngine = {
       steps.push({ type: 'phonics', phoneme: nextPhonemes[0], label: 'New Sound', emoji: '✨' });
     }
 
+    // Only add a second phonics step if it would be a different phoneme from step 1
+    const step1Phoneme = steps.length > 0 && steps[0].type === 'phonics' ? steps[0].phoneme : null;
     if (nextPhonemes.length > 1) {
-      steps.push({ type: 'phonics', phoneme: nextPhonemes[1], label: 'Phonics', emoji: '🔤' });
-    } else if (nextPhonemes.length === 1) {
+      const second = nextPhonemes.find(p => p.id !== step1Phoneme?.id) || nextPhonemes[1];
+      steps.push({ type: 'phonics', phoneme: second, label: 'Phonics', emoji: '🔤' });
+    } else if (nextPhonemes.length === 1 && step1Phoneme?.id !== nextPhonemes[0].id) {
       steps.push({ type: 'phonics', phoneme: nextPhonemes[0], label: 'Phonics', emoji: '🔤' });
     }
 

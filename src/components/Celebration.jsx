@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export function Celebration({ message = 'Amazing! 🌟', onDone }) {
   const [visible, setVisible] = useState(true);
@@ -11,14 +11,14 @@ export function Celebration({ message = 'Amazing! 🌟', onDone }) {
     return () => clearTimeout(t);
   }, []);
 
-  if (!visible) return null;
-
-  const stars = Array.from({ length: 12 }, (_, i) => ({
+  const stars = useMemo(() => Array.from({ length: 12 }, (_, i) => ({
     left: `${10 + Math.random() * 80}%`,
     top: `${10 + Math.random() * 80}%`,
     delay: `${i * 0.1}s`,
     size: 24 + Math.random() * 24,
-  }));
+  })), []);
+
+  if (!visible) return null;
 
   return (
     <div style={{

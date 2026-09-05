@@ -51,6 +51,7 @@ export function FeedSunny({ onComplete }) {
   const [selected, setSelected] = useState(null); // word string
   const [isCorrect, setIsCorrect] = useState(null);
   const [score, setScore] = useState(0);
+  const [results, setResults] = useState([]); // per-round correctness
   const [showCelebration, setShowCelebration] = useState(false);
 
   if (rounds.length === 0) {
@@ -73,6 +74,7 @@ export function FeedSunny({ onComplete }) {
     const correct = word === answer.word;
     setSelected(word);
     setIsCorrect(correct);
+    setResults(prev => [...prev, correct]);
     masteryEngine.recordAnswer('phoneme', phoneme.id, correct);
     if (correct) setScore(s => s + 1);
 
@@ -173,7 +175,9 @@ export function FeedSunny({ onComplete }) {
         {Array.from({ length: TOTAL_ROUNDS }, (_, i) => (
           <div key={i} style={{
             width: 10, height: 10, borderRadius: '50%',
-            background: i < roundIdx ? (i < score ? '#22c55e' : '#ef4444') : i === roundIdx ? '#C77DFF' : '#e5e7eb',
+            background: i < results.length
+              ? (results[i] ? '#22c55e' : '#ef4444')
+              : i === roundIdx ? '#C77DFF' : '#e5e7eb',
             transition: 'background 0.3s',
           }} />
         ))}

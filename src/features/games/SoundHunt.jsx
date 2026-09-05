@@ -88,7 +88,7 @@ export function SoundHunt({ onComplete }) {
 
   function nextRound() {
     if (roundIdx + 1 >= rounds.length) {
-      if (score + (roundDone && !Object.values(tapped).includes('wrong') ? 1 : 0) >= 2) {
+      if (score >= 2) {
         setShowCelebration(true);
       } else {
         setGameOver(true);
@@ -164,9 +164,11 @@ export function SoundHunt({ onComplete }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
         {tiles.map(word => {
           const state = tapped[word.word];
+          const revealCorrect = roundDone && !state && correctIds.includes(word.word);
           let bg = 'white', border = '#e5e7eb', overlay = null;
           if (state === 'correct') { bg = '#dcfce7'; border = '#22c55e'; overlay = '✅'; }
           if (state === 'wrong') { bg = '#fee2e2'; border = '#ef4444'; overlay = '❌'; }
+          if (revealCorrect) { bg = '#dcfce7'; border = '#22c55e'; overlay = '✅'; }
           return (
             <button
               key={word.word}

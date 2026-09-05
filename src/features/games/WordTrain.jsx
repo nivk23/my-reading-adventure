@@ -22,7 +22,10 @@ function makeCarriages(word) {
 
 export function WordTrain({ onComplete }) {
   const allWords = curriculumEngine.getAvailableWords();
-  const [words] = useState(() => shuffle(allWords).slice(0, 4));
+  // Pre-compute carriages per word so they don't drift when wordIdx changes
+  const [words] = useState(() =>
+    shuffle(allWords).slice(0, 4).map(w => ({ ...w, carriages: makeCarriages(w.word) }))
+  );
   const [wordIdx, setWordIdx] = useState(0);
   const [placed, setPlaced] = useState([]); // origIdx values placed so far
   const [hadMistake, setHadMistake] = useState(false);
@@ -41,9 +44,7 @@ export function WordTrain({ onComplete }) {
 
   const word = words[wordIdx];
   const letters = word.word.split('');
-
-  const [carriages] = useState(() => makeCarriages(word.word));
-  // We need to re-create carriages per word. Use a key-based approach by resetting state.
+  const carriages = word.carriages;
 
   const nextCorrectIdx = placed.length; // the next origIdx we need is placed.length (0,1,2...)
 
