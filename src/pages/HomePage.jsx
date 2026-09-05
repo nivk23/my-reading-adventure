@@ -51,14 +51,18 @@ export function HomePage({ onStartActivity }) {
           const done = completedToday.includes(i);
           const active = !done && mission.slice(0, i).every((_, j) => completedToday.includes(j));
           return (
-            <div
+            <button
               key={i}
+              onClick={() => !done && onStartActivity(step)}
+              disabled={done}
               style={{
                 background: done ? '#F0FDF4' : active ? 'white' : '#f9fafb',
                 borderRadius: '1.25rem', padding: '16px 20px',
                 border: `3px solid ${done ? '#22c55e' : active ? '#C77DFF' : '#e5e7eb'}`,
                 display: 'flex', alignItems: 'center', gap: 14,
                 boxShadow: active ? '0 4px 16px rgba(199,125,255,0.15)' : 'none',
+                width: '100%', fontFamily: 'inherit', cursor: done ? 'default' : 'pointer',
+                textAlign: 'left',
               }}
             >
               <div style={{ fontSize: 28 }}>{done ? '✅' : step.emoji}</div>
@@ -74,7 +78,7 @@ export function HomePage({ onStartActivity }) {
                 </div>
               </div>
               {active && <div style={{ color: '#C77DFF', fontWeight: 900, fontSize: 20 }}>→</div>}
-            </div>
+            </button>
           );
         })}
         {mission.length === 0 && (
