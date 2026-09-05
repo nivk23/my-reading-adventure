@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FFF8F0;
+  --color-warm: #FEF3E2;
+  --color-peach: #FDDCB5;
+  --color-coral: #FF6B6B;
+  --color-sky: #5BC8F5;
+  --color-mint: #6BCFA5;
+  --color-lavender: #C77DFF;
+  --color-sunshine: #FFD93D;
+  --color-rose: #FF8FAB;
+  --color-forest: #2D6A4F;
+  --color-earth: #8B5E3C;
+  --color-stone: #6B7280;
+  --font-display: 'Nunito', sans-serif;
+  --radius-sm: 0.75rem;
+  --radius-md: 1.25rem;
+  --radius-lg: 1.75rem;
+  --radius-xl: 2.25rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #FFF8F0;
+  color: #2D2D2D;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounceIn { 0% { transform: scale(0.7); opacity: 0; } 60% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+@keyframes starPop { 0%{transform:scale(0) rotate(-30deg);opacity:0} 70%{transform:scale(1.3);opacity:1} 100%{transform:scale(1);opacity:1} }
+@keyframes floatUp { 0%{transform:translateY(0);opacity:1} 100%{transform:translateY(-80px);opacity:0} }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+
+.animate-fade-in { animation: fadeIn 0.3s ease both; }
+.animate-bounce-in { animation: bounceIn 0.4s ease both; }
+.animate-slide-up { animation: slideUp 0.35s ease both; }
+.animate-shake { animation: shake 0.4s ease; }
+.animate-star-pop { animation: starPop 0.5s ease both; }
+.animate-float-up { animation: floatUp 1s ease forwards; }
+.animate-pulse-slow { animation: pulse 2s infinite; }
