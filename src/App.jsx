@@ -13,7 +13,9 @@ import { SoundHunt } from './features/games/SoundHunt.jsx';
 import { WordTrain } from './features/games/WordTrain.jsx';
 import { FeedSunny } from './features/games/FeedSunny.jsx';
 import { SegmentingActivity } from './features/segmenting/SegmentingActivity.jsx';
-import { StickerBook } from './features/games/StickerBook.jsx';
+import { WordFamiliesActivity } from './features/wordFamilies/WordFamiliesActivity.jsx';
+import { PhonemeSubstitution } from './features/phonemeSubstitution/PhonemeSubstitution.jsx';
+import { StickerBookPage } from './pages/StickerBookPage.jsx';
 import { storage } from './lib/storage.js';
 import { PHONEMES } from './data/phonemes.js';
 
@@ -75,7 +77,11 @@ export default function App() {
     return (
       <div style={rootStyle}>
         <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 16 }}>
-          <StickerBook onClose={() => setShowStickerBook(false)} />
+          <div style={{ display: 'flex', alignItems: 'center', padding: '14px 20px', borderBottom: '2px solid #f3f4f6', background: 'white' }}>
+            <button onClick={() => setShowStickerBook(false)} style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', marginRight: 8 }}>←</button>
+            <div style={{ fontWeight: 900, fontSize: 18 }}>My Sticker Book</div>
+          </div>
+          <StickerBookPage />
         </div>
       </div>
     );
@@ -112,6 +118,12 @@ export default function App() {
           )}
           {activity.type === 'game' && activity.game === 'segmenting' && (
             <SegmentingActivity onComplete={completeActivity} />
+          )}
+          {activity.type === 'game' && activity.game === 'wordFamilies' && (
+            <WordFamiliesActivity onComplete={completeActivity} />
+          )}
+          {activity.type === 'game' && activity.game === 'phonemeSubstitution' && (
+            <PhonemeSubstitution onComplete={completeActivity} />
           )}
         </div>
       </div>

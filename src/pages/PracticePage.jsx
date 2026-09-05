@@ -6,6 +6,8 @@ const GAMES = [
   { key: 'wordTrain', emoji: '🚂', title: 'Word Train', desc: 'Tap letters to build words' },
   { key: 'feedSunny', emoji: '🍽️', title: 'Feed Sunny', desc: 'Feed Sunny the right words' },
   { key: 'segmenting', emoji: '🔊', title: 'Sound Boxes', desc: 'Tap each sound in a word' },
+  { key: 'wordFamilies', emoji: '👨‍👩‍👧', title: 'Word Families', desc: 'Learn -at, -ig, -op and more' },
+  { key: 'phonemeSubstitution', emoji: '🔄', title: 'Swap the Sound', desc: 'Change a sound to make a new word' },
 ];
 
 export function PracticePage({ onStartActivity }) {

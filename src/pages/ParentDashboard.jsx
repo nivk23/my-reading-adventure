@@ -4,12 +4,14 @@ import { SIGHT_WORDS } from '../data/sightWords.js';
 import { masteryEngine, STATUS } from '../lib/masteryEngine.js';
 import { SettingsPanel } from '../components/SettingsPanel.jsx';
 import { PrintWorksheet } from '../components/PrintWorksheet.jsx';
+import { VoiceRecorder } from '../features/voiceRecording/VoiceRecorder.jsx';
 import { sessionHistory } from '../lib/sessionHistory.js';
 import { storage } from '../lib/storage.js';
 
 export function ParentDashboard() {
   const [showSettings, setShowSettings] = useState(false);
   const [showWorksheet, setShowWorksheet] = useState(false);
+  const [showVoiceRecorder, setShowVoiceRecorder] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const stats = masteryEngine.getStats();
   const todayStats = sessionHistory.getTodayStats();
@@ -38,6 +40,8 @@ export function ParentDashboard() {
   }
 
   return (
+    <>
+    {showVoiceRecorder && <VoiceRecorder onClose={() => setShowVoiceRecorder(false)} />}
     <div style={{ padding: 20, maxWidth: 600, margin: '0 auto' }}>
       {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
 
@@ -192,6 +196,17 @@ export function ParentDashboard() {
       </div>
 
       <button
+        onClick={() => setShowVoiceRecorder(true)}
+        style={{
+          width: '100%', padding: '16px',
+          background: '#FFF8F0', color: '#FF6B6B',
+          border: '2px solid #FF6B6B', borderRadius: '1.25rem',
+          fontFamily: 'inherit', fontWeight: 900, fontSize: 15,
+          cursor: 'pointer', marginBottom: 12,
+        }}
+      >🎙️ Record Your Voice</button>
+
+      <button
         onClick={() => setShowWorksheet(true)}
         style={{
           width: '100%', padding: '16px',
@@ -216,5 +231,6 @@ export function ParentDashboard() {
         {confirmReset ? '⚠️ Tap again to confirm reset' : '🗑️ Reset all progress (dev)'}
       </button>
     </div>
+    </>
   );
 }
