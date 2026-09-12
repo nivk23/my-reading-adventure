@@ -1,19 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
-  <rect width="192" height="192" rx="42" fill="#C77DFF"/>
-  <rect x="8" y="8" width="176" height="176" rx="36" fill="#EDE9FE"/>
-  <!-- Book shape -->
-  <rect x="44" y="52" width="104" height="76" rx="8" fill="#C77DFF"/>
-  <rect x="44" y="52" width="52" height="76" rx="8" fill="#9333ea"/>
-  <!-- Spine -->
-  <rect x="92" y="52" width="4" height="76" fill="#7c22cc"/>
-  <!-- Lines on right page -->
-  <rect x="104" y="74" width="32" height="5" rx="2.5" fill="white" opacity="0.7"/>
-  <rect x="104" y="87" width="24" height="5" rx="2.5" fill="white" opacity="0.7"/>
-  <rect x="104" y="100" width="28" height="5" rx="2.5" fill="white" opacity="0.7"/>
-  <rect x="104" y="113" width="20" height="5" rx="2.5" fill="white" opacity="0.7"/>
-  <!-- Star -->
-  <text x="60" y="104" font-size="38" text-anchor="middle" font-family="sans-serif">⭐</text>
-  <!-- Bottom label -->
-  <rect x="32" y="142" width="128" height="24" rx="12" fill="#C77DFF"/>
-  <text x="96" y="159" font-size="13" font-weight="bold" text-anchor="middle" fill="white" font-family="Nunito, system-ui, sans-serif">My Reading</text>
+  <!-- Yellow background -->
+  <rect width="192" height="192" rx="42" fill="#F5C518"/>
+  <rect x="4" y="4" width="184" height="184" rx="38" fill="#FFD23F"/>
+
+  <!-- Gold star top-left -->
+  <polygon points="28,22 31,31 40,31 33,37 36,46 28,40 20,46 23,37 16,31 25,31" fill="#E8A800"/>
+
+  <!-- Letter A top-right -->
+  <text x="148" y="52" font-family="Georgia, serif" font-size="38" font-weight="bold" fill="#B03A00" text-anchor="middle">A</text>
+
+  <!-- Gold star right -->
+  <polygon points="161,72 164,81 173,81 166,87 169,96 161,90 153,96 156,87 149,81 158,81" fill="#E8A800"/>
+
+  <!-- Apple shadow -->
+  <ellipse cx="95" cy="148" rx="42" ry="8" fill="#D4A000" opacity="0.4"/>
+
+  <!-- Apple body -->
+  <path d="M55,85 C55,60 75,50 95,50 C115,50 135,60 135,85 C135,115 120,145 95,145 C70,145 55,115 55,85 Z" fill="#E8302A"/>
+  <!-- Apple highlight -->
+  <ellipse cx="78" cy="72" rx="10" ry="14" fill="#FF6B5B" opacity="0.6" transform="rotate(-15 78 72)"/>
+
+  <!-- Apple indentation top -->
+  <path d="M88,52 C88,46 92,43 95,43 C98,43 102,46 102,52" fill="none" stroke="#C42020" stroke-width="2"/>
+
+  <!-- Stem -->
+  <path d="M95,44 C95,44 97,36 104,32" stroke="#7B4B2A" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+  <!-- Leaf -->
+  <ellipse cx="108" cy="28" rx="11" ry="7" fill="#4CAF50" transform="rotate(-30 108 28)"/>
+  <path d="M104,32 C104,32 108,26 112,24" stroke="#388E3C" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Kawaii eyes -->
+  <circle cx="83" cy="92" r="6" fill="#2D1A00"/>
+  <circle cx="107" cy="92" r="6" fill="#2D1A00"/>
+  <!-- Eye shine -->
+  <circle cx="85" cy="90" r="2" fill="white"/>
+  <circle cx="109" cy="90" r="2" fill="white"/>
+
+  <!-- Kawaii cheeks -->
+  <ellipse cx="73" cy="103" rx="8" ry="5" fill="#FF8C8C" opacity="0.5"/>
+  <ellipse cx="117" cy="103" rx="8" ry="5" fill="#FF8C8C" opacity="0.5"/>
+
+  <!-- Kawaii smile -->
+  <path d="M82,108 Q95,120 108,108" stroke="#2D1A00" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- ABC Book -->
+  <rect x="105" y="120" width="40" height="30" rx="4" fill="#1565C0"/>
+  <rect x="105" y="120" width="40" height="30" rx="4" fill="none" stroke="#0D47A1" stroke-width="1"/>
+  <!-- Book spine -->
+  <rect x="105" y="120" width="4" height="30" rx="2" fill="#0D47A1"/>
+  <!-- Book pages top -->
+  <path d="M109,118 L143,118 Q145,118 145,120 L109,120 Z" fill="#E3F2FD"/>
+  <!-- ABC text -->
+  <text x="126" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ABC</text>
 </svg>
